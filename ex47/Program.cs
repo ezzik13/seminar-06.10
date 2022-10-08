@@ -1,9 +1,9 @@
-﻿// Задайте двумерный массив размера m на n, каждый элемент в массиве находится по формуле: Aₘₙ = m+n. Выведите полученный массив на экран.
+﻿// Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
 using static System.Console;
 Clear();
 Write("введите размер матрицы и минимальный и максимальное значение через пробел: ");
 int[] parametrs=GetArrayFromString(ReadLine());
-int[,]matrix=GetMatrixArray(parametrs[0], parametrs[1]);
+double[,]matrix=GetMatrixArray(parametrs[0], parametrs[1], parametrs[2], parametrs[3]);
 PrinttMatrix(matrix);
 
 
@@ -13,25 +13,25 @@ PrinttMatrix(matrix);
 
 
 
-int[,] GetMatrixArray(int rows, int columns)
+double[,] GetMatrixArray(int rows, int columns, int minValue, int maxValue)
 {
-    int[,] resultMatrix= new int[rows, columns];
+    double[,] resultMatrix= new double[rows, columns];
 for (int i = 0; i < resultMatrix.GetLength(0); i++)
 {
     for (int j = 0; j < resultMatrix.GetLength(1); j++)
     {
-        resultMatrix[i,j]= i+j;
+        resultMatrix[i,j]= new Random().Next(minValue, maxValue)/100.0;
     }
 }
 return resultMatrix;
 }
-void PrinttMatrix(int[,] inMatrix)
+void PrinttMatrix(double[,] inMatrix)
 {
     for (int i = 0; i < inMatrix.GetLength(0); i++)
     {
         for (int j = 0; j < inMatrix.GetLength(1); j++)
         {
-            Write($"{inMatrix[i,j]} ");
+            Write($"{inMatrix[i,j]}\t ");
         }
         WriteLine();
     }

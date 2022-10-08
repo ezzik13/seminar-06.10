@@ -1,11 +1,15 @@
-﻿// **Задача 51:** Задайте двумерный массив. Найдите сумму элементов, находящихся на главной диагонали (с индексами (0,0); (1;1) и т
+﻿// Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 using static System.Console;
 Clear();
 Write("введите размер матрицы и минимальный и максимальное значение через пробел: ");
 int[] parametrs=GetArrayFromString(ReadLine());
 int[,]matrix=GetMatrixArray(parametrs[0], parametrs[1], parametrs[2], parametrs[3]);
 PrinttMatrix(matrix);
-GetSum(matrix);
+WriteLine();
+double[] ArithmeticMean=GetArithmeticMean(matrix);
+PrintArray(ArithmeticMean);
+
+
 
 
 
@@ -30,7 +34,7 @@ void PrinttMatrix(int[,] inMatrix)
     {
         for (int j = 0; j < inMatrix.GetLength(1); j++)
         {
-            Write($"{inMatrix[i,j]} ");
+            Write($"{inMatrix[i,j]}\t ");
         }
         WriteLine();
     }
@@ -46,16 +50,27 @@ int[] GetArrayFromString(string parameters)
     return parameterNum;
 }
 
-void GetSum(int[,] inMatrix)
+double[] GetArithmeticMean(int[,] inMatrix)
 {
-    int sum=0;
-    int temp=inMatrix.GetLength(0);
-    if(inMatrix.GetLength(0)>inMatrix.GetLength(1))
-    temp=inMatrix.GetLength(1);
-    for (int i = 0; i < temp; i++)
+    double[] arithmeticMean=new double[inMatrix.GetLength(1)];
+    
+
+    for (int i = 0; i < inMatrix.GetLength(1); i++)
     {
-        sum=sum+inMatrix[i,i];
-        
+        double sum=0;
+        for (int j = 0; j < inMatrix.GetLength(0); j++)
+        {
+            sum=sum+inMatrix[j,i];
+        }
+        arithmeticMean[i]=Math.Round(sum/inMatrix.GetLength(0),2);
     }
-    WriteLine($"Сумма элементов главной диагонали равна {sum}");
+    return arithmeticMean;
+}
+void PrintArray(double[] inArray)
+{
+for(int i=0;i<inArray.Length-1;i++)
+{
+    Write($"{inArray[i]}      ");
+}
+WriteLine($"{inArray[inArray.Length-1]}");
 }
